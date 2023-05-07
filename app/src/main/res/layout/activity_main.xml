@@ -1,155 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1F1F1"
     tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/Historyscreen"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:fontFamily="monospace"
-        android:gravity="end"
-        android:text="0"
-        android:textAlignment="viewEnd"
-        android:textSize="18sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TableLayout
+        android:id="@+id/KeyboardTable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="30dp"
         android:shrinkColumns="*"
         android:stretchColumns="*"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <Button
                 android:id="@+id/btn7"
-                style="@style/DigitBtnStyle"
+                style="@style/KeyboardBtnDigitsStyle"
                 android:text="7" />
-
             <Button
                 android:id="@+id/btn8"
-                style="@style/DigitBtnStyle"
+                style="@style/KeyboardBtnDigitsStyle"
                 android:text="8" />
-
             <Button
                 android:id="@+id/btn9"
-                style="@style/DigitBtnStyle"
+                style="@style/KeyboardBtnDigitsStyle"
                 android:text="9" />
-
             <Button
-                android:id="@+id/btnPlus"
+                android:id="@+id/btnDiv"
+                style="@style/KeyboardBtnOperatorStyle"
+                android:text="/" />
+            <Button
+                android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="setOperator"
-                android:text="+" />
+                android:backgroundTint="#C1C1C1"
+                android:layout_marginBottom="1dp"
+                android:text="BACK"
+                android:textColor="@color/black" />
         </TableRow>
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <Button
                 android:id="@+id/btn4"
-                style="@style/DigitBtnStyle"
+                style="@style/KeyboardBtnDigitsStyle"
                 android:text="4" />
-
             <Button
                 android:id="@+id/btn5"
-                style="@style/DigitBtnStyle"
+                style="@style/KeyboardBtnDigitsStyle"
                 android:text="5" />
-
             <Button
                 android:id="@+id/btn6"
-                style="@style/DigitBtnStyle"
+                style="@style/KeyboardBtnDigitsStyle"
                 android:text="6" />
-
             <Button
-                android:id="@+id/btnMoins"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setOperator"
-                android:text="-" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/btn1"
-                style="@style/DigitBtnStyle"
-                android:text="1" />
-
-            <Button
-                android:id="@+id/btn2"
-                style="@style/DigitBtnStyle"
-                android:text="2" />
-
-            <Button
-                android:id="@+id/btn3"
-                style="@style/DigitBtnStyle"
-                android:text="3" />
-
-            <Button
-                android:id="@+id/btnFois"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setOperator"
-                android:text="*" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+                android:id="@+id/btnMul"
+                style="@style/KeyboardBtnOperatorStyle"
+                android:text="X" />
             <Button
                 android:id="@+id/btnClear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="C" />
-
+                android:backgroundTint="#C1C1C1"
+                android:layout_marginBottom="1dp"
+                android:text="AC"
+                android:textColor="@color/black" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btn1"
+                style="@style/KeyboardBtnDigitsStyle"
+                android:text="1" />
+            <Button
+                android:id="@+id/btn2"
+                style="@style/KeyboardBtnDigitsStyle"
+                android:text="2" />
+            <Button
+                android:id="@+id/btn3"
+                style="@style/KeyboardBtnDigitsStyle"
+                android:text="3" />
+            <Button
+                android:id="@+id/btnSub"
+                style="@style/KeyboardBtnOperatorStyle"
+                android:text="-" />
+            <Space />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <Button
                 android:id="@+id/btn0"
-                style="@style/DigitBtnStyle"
+                style="@style/KeyboardBtnDigitsStyle"
                 android:text="0" />
-
             <Button
-                android:id="@+id/btnEgal"
+                android:id="@+id/btnSep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#C1C1C1"
+                android:text="."
+                android:textColor="@color/black" />
+            <Space />
+            <Button
+                android:id="@+id/btnAdd"
+                style="@style/KeyboardBtnOperatorStyle"
+                android:text="+" />
+            <Button
+                android:id="@+id/btnEql"
+                style="@style/KeyboardBtnOperatorStyle"
                 android:text="=" />
-
-            <Button
-                android:id="@+id/btnDiv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setOperator"
-                android:text="/" />
         </TableRow>
     </TableLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
