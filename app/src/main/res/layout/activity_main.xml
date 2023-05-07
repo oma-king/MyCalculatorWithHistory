@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#C1C1C1"
                 android:text="BACK"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textStyle="bold"
                 android:textColor="@color/black" />
         </TableRow>
