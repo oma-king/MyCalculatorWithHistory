@@ -2,6 +2,8 @@ package com.example.mycalculatorwithhistory;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.database.sqlite.SQLiteDatabase;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private TextView txtOperation, txtResult;
     private ListView lstHistory;
     private String lastChrInTxtOperation;
+    SQLiteDatabase myLocalCalcDb;
     private boolean equalRequested = false, decimalRequested = false;
     private final static int IsException = -1;
     private final static int IsDigit = 0;
@@ -83,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         opMlt.setOnClickListener(this);
         opDiv.setOnClickListener(this);
         opEql.setOnClickListener(this);
+
+        /***************************** Prepare Database *****************************/
+        myLocalCalcDb = openOrCreateDatabase("myLocalCalcDb", Context.MODE_PRIVATE,null);
+        myLocalCalcDb.execSQL("CREATE TABLE IF NOT EXISTS CalcHistoy(idHistory integer primary key autoincrement, Operation VARCHAR,Result VARCHAR);");
     }
 
     public void onClick(View view) {
@@ -149,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.btnEql:
                 chkInputToCalculate(txtOperation.getText().toString());
+                manageHistory(txtOperation.getText().toString(),txtResult.getText().toString());
+
                 break;
             case R.id.btnClear:
                 txtOperation.setText("");
@@ -335,4 +345,28 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             }
         }.parse();
     }
+
+    private void manageHistory(String Operation,String Result)
+    {
+        if (Operation != null && !Operation.equals("") && Result != null && !Result.equals("")){
+            myLocalCalcDb.execSQL("INSERT INTO CalcHistoy(Operation,Result) VALUES('" + Operation + "','" + Result + "');");
+            Toast.makeText(getApplicationContext(), "Added toHistory !", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void displayLastHistoryEntry() {
+
+        Cursor cursor = myLocalCalcDb.rawQuery("SELECT Operation, Result  FROM CalcHistoy ORDER BY idHistory asc", null);
+        if (cursor.moveToFirst()) {
+
+           // ClientCursorAdapter adapter = new ClientCursorAdapter(this, cursor, 0);
+            ///lstHistory.setAdapter(adapter);
+            lstHistory.setSelection(cursor.getCount() - 1);
+
+        }
+
+    }
+
+
 }
