@@ -8,18 +8,17 @@
     android:orientation="vertical"
     android:background="#F1F1F1"
     tools:context=".MainActivity">
+
     <ListView
         android:id="@+id/lsvHistory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="350dp"
         android:fontFamily="monospace"
-        android:textStyle="bold"
         android:textColor="#707070"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/OperationScreen"/>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/OperationScreen"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/OperationScreen"
         android:layout_width="match_parent"

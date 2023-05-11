@@ -91,51 +91,64 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         /***************************** Prepare Database *****************************/
         myLocalCalcDb = openOrCreateDatabase("myLocalCalcDb", Context.MODE_PRIVATE,null);
         myLocalCalcDb.execSQL("CREATE TABLE IF NOT EXISTS CalcHistoy(idHistory integer primary key autoincrement, Operation VARCHAR,Result VARCHAR);");
+        displayLastHistoryEntry();
+
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn0:
+                if(equalRequested == true){fnClear();}
                 insertDigit("0");
                 equalRequested = false;
                 break;
             case R.id.btn1:
+                if(equalRequested == true){fnClear();}
                 insertDigit("1");
                 equalRequested = false;
                 break;
             case R.id.btn2:
+                if(equalRequested == true){fnClear();}
                 insertDigit("2");
                 equalRequested = false;
                 break;
             case R.id.btn3:
+                if(equalRequested == true){fnClear();}
                 insertDigit("3");
                 equalRequested = false;
                 break;
             case R.id.btn4:
+                if(equalRequested == true){fnClear();}
                 insertDigit("4");
                 equalRequested = false;
                 break;
             case R.id.btn5:
+                if(equalRequested == true){fnClear();}
                 insertDigit("5");
                 equalRequested = false;
                 break;
             case R.id.btn6:
+                if(equalRequested == true){fnClear();}
                 insertDigit("6");
                 equalRequested = false;
                 break;
             case R.id.btn7:
+                if(equalRequested == true){fnClear();}
                 insertDigit("7");
                 equalRequested = false;
                 break;
             case R.id.btn8:
+                if(equalRequested == true){fnClear();}
                 insertDigit("8");
                 equalRequested = false;
                 break;
             case R.id.btn9:
+                if(equalRequested == true){fnClear();}
                 insertDigit("9");
                 equalRequested = false;
                 break;
             case R.id.btnSep:
+                if(equalRequested == true){fnClear();}
                 insertSeparator();
                 equalRequested = false;
                 break;
@@ -156,15 +169,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 equalRequested = false;
                 break;
             case R.id.btnEql:
-                chkInputToCalculate(txtOperation.getText().toString());
-                manageHistory(txtOperation.getText().toString(),txtResult.getText().toString());
+                if(equalRequested == false) {
+                    chkInputToCalculate(txtOperation.getText().toString());
 
+                }
                 break;
             case R.id.btnClear:
-                txtOperation.setText("");
-                txtResult.setText("");
-                decimalRequested = false;
-                equalRequested = false;
+                fnClear();
                 break;
             case R.id.btnBack:
                 fnBack();
@@ -235,6 +246,20 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
         return executed;
     }
+
+    private boolean fnClear() {
+        boolean executed = false;
+        txtOperation.setText("");
+        txtResult.setText("");
+        int txtOperationLength = txtOperation.getText().length();
+        int txtResultLength = txtResult.getText().length();
+        decimalRequested = false;
+        equalRequested = false;
+        if (txtOperationLength == 0 && txtResultLength == 0) {
+            executed = true;
+        }
+        return executed;
+    }
     private boolean fnBack() {
         boolean executed = false;
         int txtOperationLength = txtOperation.getText().length();
@@ -282,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 {
                     txtResult.setText(String.format("%s", doCalculation(inputToCalculate)));
                     equalRequested = true;
+                    manageHistory(txtOperation.getText().toString(), txtResult.getText().toString());
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Invalid Operation !", Toast.LENGTH_SHORT).show();
@@ -350,21 +376,24 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     {
         if (Operation != null && !Operation.equals("") && Result != null && !Result.equals("")){
             myLocalCalcDb.execSQL("INSERT INTO CalcHistoy(Operation,Result) VALUES('" + Operation + "','" + Result + "');");
-            Toast.makeText(getApplicationContext(), "Added toHistory !", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Added toHistory !", Toast.LENGTH_SHORT).show();
+            displayLastHistoryEntry();
         }
     }
 
 
     private void displayLastHistoryEntry() {
 
-        Cursor cursor = myLocalCalcDb.rawQuery("SELECT Operation, Result  FROM CalcHistoy ORDER BY idHistory asc", null);
-        if (cursor.moveToFirst()) {
+        try {
+            Cursor cursor = myLocalCalcDb.rawQuery("SELECT idHistory AS _id, Operation, Result  FROM CalcHistoy ORDER BY idHistory asc", null);
+            if (cursor.moveToFirst()) {
 
-           // ClientCursorAdapter adapter = new ClientCursorAdapter(this, cursor, 0);
-            ///lstHistory.setAdapter(adapter);
-            lstHistory.setSelection(cursor.getCount() - 1);
+                lsvHistoryCursorAdapter adapter = new lsvHistoryCursorAdapter(this, cursor, 0);
+                lstHistory.setAdapter(adapter);
+                lstHistory.setSelection(cursor.getCount() - 1);
 
-        }
+            }
+        } catch (Exception e){System.out.println(e.toString()); }
 
     }
 
