@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         opEql.setOnClickListener(this);
 
         /***************************** Prepare Database *****************************/
-        myLocalCalcDb = openOrCreateDatabase("myLocalCalcDb", Context.MODE_PRIVATE,null);
+        myLocalCalcDb = openOrCreateDatabase("myLocalCalcDb", Context.MODE_PRIVATE, null);
         myLocalCalcDb.execSQL("CREATE TABLE IF NOT EXISTS CalcHistoy(idHistory integer primary key autoincrement, Operation VARCHAR,Result VARCHAR);");
         displayLastHistoryEntry();
 
@@ -98,57 +98,79 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn0:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("0");
                 equalRequested = false;
                 break;
             case R.id.btn1:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("1");
                 equalRequested = false;
                 break;
             case R.id.btn2:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("2");
                 equalRequested = false;
                 break;
             case R.id.btn3:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("3");
                 equalRequested = false;
                 break;
             case R.id.btn4:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("4");
                 equalRequested = false;
                 break;
             case R.id.btn5:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("5");
                 equalRequested = false;
                 break;
             case R.id.btn6:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("6");
                 equalRequested = false;
                 break;
             case R.id.btn7:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("7");
                 equalRequested = false;
                 break;
             case R.id.btn8:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("8");
                 equalRequested = false;
                 break;
             case R.id.btn9:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertDigit("9");
                 equalRequested = false;
                 break;
             case R.id.btnSep:
-                if(equalRequested == true){fnClear();}
+                if (equalRequested == true) {
+                    fnClear();
+                }
                 insertSeparator();
                 equalRequested = false;
                 break;
@@ -169,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 equalRequested = false;
                 break;
             case R.id.btnEql:
-                if(equalRequested == false) {
+                if (equalRequested == false) {
                     chkInputToCalculate(txtOperation.getText().toString());
 
                 }
@@ -213,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         if (txtOperationLength > 0) {
             String lastChr = txtOperation.getText().charAt(txtOperationLength - 1) + "";
 
-            if (lastChr.equals(".") || lastChr.equals("+") ||  lastChr.equals("-") || lastChr.equals("*") || lastChr.equals("/")) {
+            if (lastChr.equals(".") || lastChr.equals("+") || lastChr.equals("-") || lastChr.equals("*") || lastChr.equals("/")) {
                 Toast.makeText(getApplicationContext(), "Invalid format !", Toast.LENGTH_SHORT).show();
             } else if ((operand.equals("+") || operand.equals("-") || operand.equals("*") || operand.equals("/"))) {
                 txtOperation.setText(txtOperation.getText() + operand);
@@ -267,11 +289,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         if (txtOperationLength == 0) {
             Toast.makeText(getApplicationContext(), "Nothing to remove !", Toast.LENGTH_SHORT).show();
             executed = true;
-        }
-        else if (txtOperationLength > 0) {
+        } else if (txtOperationLength > 0) {
             String lastChr = sTxtOperation.charAt(txtOperationLength - 1) + "";
             sTxtOperation = sTxtOperation.substring(0, txtOperationLength - 1);
-            if (lastChr.equals(".")){
+            if (lastChr.equals(".")) {
                 decimalRequested = false;
                 equalRequested = false;
                 executed = true;
@@ -297,27 +318,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         return IsException;
     }
 
-    private void chkInputToCalculate(String inputToCalculate)
-    {
-        if (txtOperation.getText().toString() != null && !txtOperation.getText().toString().equals("")){
+    private void chkInputToCalculate(String inputToCalculate) {
+        if (txtOperation.getText().toString() != null && !txtOperation.getText().toString().equals("")) {
             String lastOfExpression = inputToCalculate.charAt(inputToCalculate.length() - 1) + "";
-            if (inputToCalculate.length() > 1)
-            {
-                if (getLastChr(lastOfExpression + "") == IsDigit)
-                {
+            if (inputToCalculate.length() > 1) {
+                if (getLastChr(lastOfExpression + "") == IsDigit) {
                     txtResult.setText(String.format("%s", doCalculation(inputToCalculate)));
                     equalRequested = true;
                     manageHistory(txtOperation.getText().toString(), txtResult.getText().toString());
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Invalid Operation !", Toast.LENGTH_SHORT).show();
                 }
             }
         }
 
-
     }
-
 
     public static double doCalculation(final String toCalculate) {
         return new Object() {
@@ -372,15 +387,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }.parse();
     }
 
-    private void manageHistory(String Operation,String Result)
-    {
-        if (Operation != null && !Operation.equals("") && Result != null && !Result.equals("")){
+    private void manageHistory(String Operation, String Result) {
+        if (Operation != null && !Operation.equals("") && Result != null && !Result.equals("")) {
             myLocalCalcDb.execSQL("INSERT INTO CalcHistoy(Operation,Result) VALUES('" + Operation + "','" + Result + "');");
             //Toast.makeText(getApplicationContext(), "Added toHistory !", Toast.LENGTH_SHORT).show();
             displayLastHistoryEntry();
         }
     }
-
 
     private void displayLastHistoryEntry() {
 
@@ -393,9 +406,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 lstHistory.setSelection(cursor.getCount() - 1);
 
             }
-        } catch (Exception e){System.out.println(e.toString()); }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
     }
-
 
 }
